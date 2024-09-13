@@ -1,0 +1,317 @@
+<html></html>
+ <head>
+  <title>
+   Galgotias University
+  </title>
+  <style>
+   body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fffafa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #151515;
+            color: white;
+            padding: 17px 10%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .header .title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #d9534f;
+            flex: 1 1 auto;
+        }
+        
+        .header .title img{
+            width: 320px;
+        }
+        .header .login-links {
+            display: flex;
+            gap: 20px;
+            flex: 1 1 auto;
+            justify-content: flex-end;
+        }
+        .header .login-links a {
+            color:#e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .header .login-links a:hover {
+            text-decoration: underline;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .dropdown {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            background-color: #151515;
+            padding: 10px 50px;
+        }
+        .dropdown a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .dropdown a:hover {
+            text-decoration: underline;
+        }
+        .main-content {
+            text-align: center;
+            padding: 100px 20px;
+            flex: 1;
+        }
+        .main-content img {
+            margin-top: 8%;
+            width: 476px;
+        }
+        .main-content h1 {
+            font-size: 36px;
+            color: #170707;
+            margin: 20px 0 10px;
+        }
+        .main-content h2 {
+            font-size: 22px;
+            color: #d9534f;
+            padding-top: 25px;
+            margin: 10px 0;
+        }
+        .main-content h3 {
+            font-size: 18px;
+            color: #d4a017;
+            margin: 10px 0;
+        }
+        .main-content p {
+            font-size: 15px;
+            line-height: 25px;
+            align-items: center;
+            color: #383838e3;
+            margin:  10px 30%;
+        }
+        .footer {
+            background-color: #767676;
+            color: rgb(199, 199, 199);
+            padding: 10px 40px;
+            display: flex;
+            font-size: 14px;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid #ccc;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer a {
+            color: rgb(217, 217, 217);
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 20px;
+            }
+            .header .title {
+                font-size: 17px;
+            }
+            .header .title span{
+                font-size: 15px;
+            }
+            .header .login-links {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .main-content {
+                padding: 50px 20px;
+            }
+            .main-content h1 {
+                font-size: 28px;
+            }
+            .main-content h2 {
+                font-size: 20px;
+            }
+            .main-content h3 {
+                font-size: 16px;
+            }
+            .main-content p {
+                font-size: 12px;
+                margin:  10px 5%;
+            }
+            .footer {
+                padding: 10px 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        .container {
+            margin-top: 5%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
+            margin: 10px;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card i {
+            font-size: 40px;
+            color: transparent;
+            -webkit-text-stroke: 1px #000000;
+            margin-bottom: 20px;
+        }
+        .card p {
+            margin-top: 10px;
+            color: #d9534f;
+            font-size: 16px;
+        }
+        @media (max-width: 600px) {
+            .card {
+                width: 50%;
+            }
+        }
+  </style>
+  <script>
+   function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown");
+            var menuIcon = document.getElementById("menu-icon");
+            if (dropdown.style.display === "flex") {
+                dropdown.style.display = "none";
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+            } else {
+                dropdown.style.display = "flex";
+                menuIcon.classList.remove("fa-bars");
+                menuIcon.classList.add("fa-times");
+            }
+        }
+  </script>
+ </head>
+ <body>
+  <div class="header">
+   <div class="title">
+     <!-- <img src="gulogo.png" alt="">   -->
+    GU <span style=" font-weight: 200;color: #e0e0e0;">Department Quality Assurance Cell</span> 
+   </div>
+   <div class="login-links">
+    <a href="home.html">
+        <i class="fas fa-home">
+        </i>
+        Home
+    </a>
+    <a href="home.html">
+     <i class="fas fa-user">
+     </i>
+     Employee Login
+    </a>
+    <a href="admin.html">
+     <i class="fas fa-user-cog">
+     </i>
+     Admin Login
+    </a>
+    <a href="about.html">
+        <i class="fas fa-info">
+        </i>
+        About Us
+    </a>
+       
+   </div>
+   <div class="menu-icon" onclick="toggleDropdown()">
+    <i class="fas fa-bars" id="menu-icon">
+    </i>
+   </div>
+   <div class="dropdown" id="dropdown">
+    <a href="home.html">
+        <i class="fas fa-home">
+        </i>
+        Home
+    </a>
+    <a href="home.html">
+     <i class="fas fa-user-graduate">
+     </i>
+     Employee Login
+    </a>
+    <a href="facultydata.html">
+     <i class="fas fa-user-cog">
+     </i>
+     Admin Login
+    </a>
+    <a href="admin.html">
+        <i class="fas fa-info">
+        </i>
+        About Us
+    </a>
+   </div>
+  </div>
+
+  <!-- header -->
+  <div class="main-content">
+  
+   <h2>
+    Department Quality Assurance Cell (DQAC)
+   </h2> 
+   <p>
+   The unofficial Department Quality Assurance Cell (DQAC) is designed for the School of 
+   Computer Applications and Technology, specifically managed by Dr. Kavita and the Department 
+   of Computer Application. This portal facilitates the collection and management of various data, 
+   including new admissions, existing student information, faculty details, and research and publication records. 
+   The system aims to streamline data handling and support the department in maintaining high-quality standards and 
+   effective management practices.
+   </p>  
+
+   <div class="container">
+    <a href="studentdata.html" class="card">
+        <i class="fas fa-user-graduate"></i>
+        <p>Student Registration</p>
+    </a>
+    <a href="faculty.html" class="card">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <p>Faculty Registration</p>
+    </a>
+    <a href="admin.html" class="card">
+        <i class="fas fa-user-shield"></i>
+        <p>Admin Registration</p>
+    </a>
+</div>
+
+  </div>
+  <div class="footer">
+   <div>
+    ©
+    <a href="home.html">
+     Galgotias University
+    </a>
+    , 2024. All rights reserved.
+   </div>
+   <div>
+    Department Quality Assurance Cell
+   </div>
+  </div>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+ </body>
+</html>
