@@ -71,6 +71,7 @@
         }
         .main-content {
             text-align: center;
+            padding: 50px 20px;
             flex: 1;
         }
         .main-content img {
@@ -100,13 +101,13 @@
             color: #383838e3;
             margin:  10px 30%;
         }
-     .main-content iframe {
+               .main-content iframe {
             width: 100%;
             height: calc(100vh - 125px); /* Adjust for header and footer */
             border: none;
             padding-top:10px;
             display: block;
-     }
+               }
         .footer {
             background-color: #767676;
             color: rgb(199, 199, 199);
@@ -149,7 +150,7 @@
                 font-size: 19px;
             }
             .main-content h2 {
-                font-size: 19px;
+                font-size: 20px;
             }
             .main-content h3 {
                 font-size: 16px;
@@ -158,7 +159,8 @@
                 font-size: 12px;
             }
             .footer {
-                padding: 10px 20px;
+                padding: 50px 20px;
+                margin-bottom:10%;
                 flex-direction: column;
                 gap: 10px;
             }
@@ -219,72 +221,73 @@
   </script>
  </head>
  <body>
-  <div class="header">
-   <div class="title">
-     <!-- <img src="gulogo.png" alt="">   -->
-    GU <span style=" font-weight: 200;color: #e0e0e0;">Department Quality Assurance Cell</span> 
-   </div>
-   <div class="login-links">
-    <a href="index.html">
-        <i class="fas fa-home">
-        </i>
-        Home
-    </a>
-    <a href="index.html">
-     <i class="fas fa-user">
-     </i>
-     Employee Login
-    </a>
-    <a href="admin.html">
-     <i class="fas fa-user-cog">
-     </i>
-     Admin Login
-    </a>
-    <a href="about.html">
-        <i class="fas fa-info">
-        </i>
-        About Us
-    </a>
-       
-   </div>
-   <div class="menu-icon" onclick="toggleDropdown()">
-    <i class="fas fa-bars" id="menu-icon">
-    </i>
-   </div>
-   <div class="dropdown" id="dropdown">
-    <a href="index.html">
-        <i class="fas fa-home">
-        </i>
-        Home
-    </a>
-    <a href="index.html">
-     <i class="fas fa-user-graduate">
-     </i>
-     Employee Login
-    </a>
-    <a href="admin.html">
-     <i class="fas fa-user-cog">
-     </i>
-     Admin Login
-    </a>
-    <a href="about.html">
-        <i class="fas fa-info">
-        </i>
-        About Us
-    </a>
-   </div>
-  </div>
+    <div class="header">
+        <div class="title">
+          <!-- <img src="gulogo.png" alt="">   -->
+         GU <span style=" font-weight: 200;color: #e0e0e0;">Department Quality Assurance Cell</span> 
+        </div>
+        <div class="login-links">
+         <a href="index.html">
+             <i class="fas fa-home">
+             </i>
+             Home
+         </a>
+         <a href="index.html">
+          <i class="fas fa-user">
+          </i>
+          Employee Login
+         </a>
+         <a href="admin.html">
+          <i class="fas fa-user-cog">
+          </i>
+          Admin Login
+         </a>
+         <a href="about.html">
+             <i class="fas fa-info">
+             </i>
+             About Us
+         </a>
+            
+        </div>
+        <div class="menu-icon" onclick="toggleDropdown()">
+         <i class="fas fa-bars" id="menu-icon">
+         </i>
+        </div>
+        <div class="dropdown" id="dropdown">
+         <a href="index.html">
+             <i class="fas fa-home">
+             </i>
+             Home
+         </a>
+         <a href="index.html">
+          <i class="fas fa-user-graduate">
+          </i>
+          Employee Login
+         </a>
+         <a href="facultydata.html">
+          <i class="fas fa-user-cog">
+          </i>
+          Admin Login
+         </a>
+         <a href="admin.html">
+             <i class="fas fa-info">
+             </i>
+             About Us
+         </a>
+        </div>
+       </div>
 
   <!-- header end here  -->
 
-  <div class="main-content">
-   <h1>Faculty Details Form</h1>
-   
-   <iframe 
-   src="https://script.google.com/macros/s/AKfycbx2FuC4ybuIOo48r9SUQBQ-TULoEr2C3pJ7xZ2zwhKgfXUFhgWir5ss_0kC03NB7i5C/exec" width="100%" height="100%" frameborder="0">
-</iframe>
+   <div class="main-content">
+        <h1>Student Registration Form</h1>
+        <iframe 
+            src="https://script.google.com/macros/s/AKfycbx2FuC4ybuIOo48r9SUQBQ-TULoEr2C3pJ7xZ2zwhKgfXUFhgWir5ss_0kC03NB7i5C/exec"
+            frameborder="0">
+        </iframe>
+    </div>
 
-  </div>
+
 
   <!-- footer start  -->
   <div class="footer">
@@ -302,3 +305,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
  </body>
 </html>
+
+
+
+
