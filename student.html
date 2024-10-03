@@ -19,53 +19,64 @@
             padding: 17px 10%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
+            position: relative;
         }
+
         .header .title {
             font-weight: bold;
             font-size: 16px;
             color: #d9534f;
-            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
         }
-        
-        .header .title img{
+
+        .header .title img {
             width: 320px;
+            max-width: 100%;
         }
+
         .header .login-links {
             display: flex;
             gap: 20px;
-            flex: 1 1 auto;
-            justify-content: flex-end;
         }
+
         .header .login-links a {
             color: #e0e0e0;
             text-decoration: none;
             font-size: 14px;
         }
+
         .header .login-links a:hover {
             text-decoration: underline;
         }
+
         .menu-icon {
             display: none;
             font-size: 20px;
             cursor: pointer;
         }
+
         .dropdown {
             display: none;
             flex-direction: column;
             gap: 20px;
             position: absolute;
-            top: 40px;
+            top: 60px;
             left: 0;
             right: 0;
             background-color: #151515;
-            padding: 10px 50px;
+            padding: 10px;
+            z-index: 1000;
         }
+
         .dropdown a {
             color: white;
             text-decoration: none;
             font-size: 14px;
         }
+
         .dropdown a:hover {
             text-decoration: underline;
         }
