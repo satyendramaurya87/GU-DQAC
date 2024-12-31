@@ -27,6 +27,9 @@
         }
 
         @media (max-width: 768px) {
+            .table-header {
+                display: none !important;
+            }
             .mobile-row {
                 display: block;
                 margin-bottom: 1rem;
@@ -43,9 +46,6 @@
             }
             .mobile-row > div:not(:last-child) {
                 border-bottom: 1px solid #eee;
-            }
-            .table-header {
-                display: none;
             }
         }
     </style>
@@ -97,36 +97,19 @@
                     <option value="all">All</option>
                 </select>
             </div>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50 table-header">
-                    <tr id="tableHeader">
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <input type="checkbox" id="selectAll" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Student Name
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Student ID
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Email
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Department
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Performance
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
-                    <!-- Table rows will be inserted here by JavaScript -->
-                </tbody>
-            </table>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr id="tableHeader" class="table-header">
+                            <!-- Table header will be dynamically populated -->
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Table body will be dynamically populated -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Pagination -->
@@ -152,19 +135,19 @@
             <form id="studentForm">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Name</label>
+                        <label for="studentName" class="block text-sm font-medium text-gray-700">Name</label>
                         <input type="text" id="studentName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <label for="studentEmail" class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="studentEmail" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Department</label>
+                        <label for="studentDepartment" class="block text-sm font-medium text-gray-700">Department</label>
                         <input type="text" id="studentDepartment" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Performance</label>
+                        <label for="studentPerformance" class="block text-sm font-medium text-gray-700">Performance</label>
                         <select id="studentPerformance" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
@@ -240,151 +223,173 @@
             name: true,
             id: true,
             email: true,
-            department: true,
-            performance: true
+            phone: true,
+            course: true,
+            specialization: true,
+            school: true,
+            yearofadmission: true
         };
 
         // Table rendering function with mobile support
         function renderTable() {
             const tableBody = document.getElementById('tableBody');
+            const tableHeader = document.getElementById('tableHeader');
             const start = (currentPage - 1) * itemsPerPage;
             const end = itemsPerPage === 'all' ? filteredStudents.length : start + parseInt(itemsPerPage);
             const paginatedStudents = filteredStudents.slice(start, end);
 
             tableBody.innerHTML = '';
 
-            if (paginatedStudents.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="7" class="px-6 py-4 text-center">No data available</td>';
-                tableBody.appendChild(row);
-            } else {
+            if (window.innerWidth <= 768) {
+                // Mobile view
+                tableHeader.style.display = 'none';
                 paginatedStudents.forEach(student => {
-                    if (window.innerWidth <= 768) {
-                        // Mobile view
-                        const mobileRow = document.createElement('div');
-                        mobileRow.className = 'mobile-row';
+                    const mobileRow = document.createElement('div');
+                    mobileRow.className = 'mobile-row';
 
-                        let mobileContent = '';
-                        if (columnVisibility.name) {
-                            mobileContent += `
-                                <div>
-                                    <span class="font-medium">Name:</span>
-                                    <span>${student.name}</span>
-                                </div>
-                            `;
-                        }
-                        if (columnVisibility.id) {
-                            mobileContent += `
-                                <div>
-                                    <span class="font-medium">ID:</span>
-                                    <span>${student.id}</span>
-                                </div>
-                            `;
-                        }
-                        if (columnVisibility.email) {
-                            mobileContent += `
-                                <div>
-                                    <span class="font-medium">Email:</span>
-                                    <div class="flex items-center">
-                                        <input type="checkbox" class="student-checkbox mr-2" data-email="${student.email}">
-                                        <span>${student.email}</span>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                        if (columnVisibility.department) {
-                            mobileContent += `
-                                <div>
-                                    <span class="font-medium">Department:</span>
-                                    <span>${student.department}</span>
-                                </div>
-                            `;
-                        }
-                        if (columnVisibility.performance) {
-                            mobileContent += `
-                                <div>
-                                    <span class="font-medium">Performance:</span>
-                                    <span class="status-badge status-${student.performance.toLowerCase()}">${student.performance}</span>
-                                </div>
-                            `;
-                        }
+                    let mobileContent = '';
+                    if (columnVisibility.name) {
                         mobileContent += `
                             <div>
-                                <span class="font-medium">Actions:</span>
-                                <div>
-                                    <button onclick="editStudent('${student.id}')" class="text-indigo-600 hover:text-indigo-900 mr-2">
-                                        <i data-lucide="edit-2" class="h-4 w-4"></i>
-                                    </button>
-                                    <button onclick="deleteStudent('${student.id}')" class="text-red-600 hover:text-red-900">
-                                        <i data-lucide="trash-2" class="h-4 w-4"></i>
-                                    </button>
-                                </div>
+                                <span class="font-medium">Name:</span>
+                                <span>${student.name}</span>
                             </div>
                         `;
-
-                        mobileRow.innerHTML = mobileContent;
-                        tableBody.appendChild(mobileRow);
-                    } else {
-                        // Desktop view
-                        const row = document.createElement('tr');
-                        let rowContent = `
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <input type="checkbox" class="student-checkbox rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" 
-                                       data-email="${student.email}">
-                            </td>
+                    }
+                    if (columnVisibility.id) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">Student ID:</span>
+                                <span>${student.id}</span>
+                            </div>
                         `;
-                        if (columnVisibility.name) {
-                            rowContent += `<td class="px-6 py-4 whitespace-nowrap">${student.name}</td>`;
-                        }
-                        if (columnVisibility.id) {
-                            rowContent += `<td class="px-6 py-4 whitespace-nowrap">${student.id}</td>`;
-                        }
-                        if (columnVisibility.email) {
-                            rowContent += `<td class="px-6 py-4 whitespace-nowrap">${student.email}</td>`;
-                        }
-                        if (columnVisibility.department) {
-                            rowContent += `<td class="px-6 py-4 whitespace-nowrap">${student.department}</td>`;
-                        }
-                        if (columnVisibility.performance) {
-                            rowContent += `
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="status-badge status-${student.performance.toLowerCase()}">${student.performance}</span>
-                                </td>
-                            `;
-                        }
-                        rowContent += `
-                            <td class="px-6 py-4 whitespace-nowrap">
+                    }
+                    if (columnVisibility.email) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">Email:</span>
+                                <span>${student.email}</span>
+                            </div>
+                        `;
+                    }
+                    if (columnVisibility.phone) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">Phone:</span>
+                                <span>${student.phone}</span>
+                            </div>
+                        `;
+                    }
+                    if (columnVisibility.course) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">Course:</span>
+                                <span>${student.course}</span>
+                            </div>
+                        `;
+                    }
+                    if (columnVisibility.specialization) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">Specialization:</span>
+                                <span class="status-badge status-${student.specialization.toLowerCase()}">${student.specialization}</span>
+                            </div>
+                        `;
+                    }
+                    if (columnVisibility.school) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">School:</span>
+                                <span>${student.school}</span>
+                            </div>
+                        `;
+                    }
+                    if (columnVisibility.yearofadmission) {
+                        mobileContent += `
+                            <div>
+                                <span class="font-medium">Year of Admission:</span>
+                                <span>${student.yearofadmission}</span>
+                            </div>
+                        `;
+                    }
+
+                    mobileContent += `
+                        <div>
+                            <span class="font-medium">Actions:</span>
+                            <div>
                                 <button onclick="editStudent('${student.id}')" class="text-indigo-600 hover:text-indigo-900 mr-2">
                                     <i data-lucide="edit-2" class="h-4 w-4"></i>
                                 </button>
                                 <button onclick="deleteStudent('${student.id}')" class="text-red-600 hover:text-red-900">
                                     <i data-lucide="trash-2" class="h-4 w-4"></i>
                                 </button>
+                            </div>
+                        </div>
+                    `;
+
+                    mobileRow.innerHTML = mobileContent;
+                    tableBody.appendChild(mobileRow);
+                });
+            } else {
+                // Desktop view
+                tableHeader.style.display = 'table-row';
+                updateTableHeader();
+                paginatedStudents.forEach(student => {
+                    const row = document.createElement('tr');
+                    let rowContent = `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <input type="checkbox" class="student-checkbox rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" 
+                                   data-email="${student.email}">
+                        </td>
+                    `;
+                    if (columnVisibility.name) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.name}</td>`;
+                    }
+                    if (columnVisibility.id) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.id}</td>`;
+                    }
+                    if (columnVisibility.email) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.email}</td>`;
+                    }
+                    if (columnVisibility.phone) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.phone}</td>`;
+                    }
+                    if (columnVisibility.course) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.course}</td>`;
+                    }
+                    if (columnVisibility.specialization) {
+                        rowContent += `
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                <span class="status-badge status-${student.specialization.toLowerCase()}">${student.specialization}</span>
                             </td>
                         `;
-                        row.innerHTML = rowContent;
-                        tableBody.appendChild(row);
                     }
+                    if (columnVisibility.school) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.school}</td>`;
+                    }
+                    if (columnVisibility.yearofadmission) {
+                        rowContent += `<td class="px-6 py-4 text-sm text-gray-900">${student.yearofadmission}</td>`;
+                    }
+                    rowContent += `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button onclick="editStudent('${student.id}')" class="text-indigo-600 hover:text-indigo-900 mr-2">
+                                <i data-lucide="edit-2" class="h-4 w-4"></i>
+                            </button>
+                            <button onclick="deleteStudent('${student.id}')" class="text-red-600 hover:text-red-900">
+                                <i data-lucide="trash-2" class="h-4 w-4"></i>
+                            </button>
+                        </td>
+                    `;
+                    row.innerHTML = rowContent;
+                    tableBody.appendChild(row);
                 });
             }
 
-            // Update "select all" checkbox
-            const selectAllCheckbox = document.getElementById('selectAll');
-            if (selectAllCheckbox) {
-                const checkboxes = document.querySelectorAll('.student-checkbox');
-                selectAllCheckbox.checked = checkboxes.length > 0 && Array.from(checkboxes).every(cb => cb.checked);
-            }
-
-            // Update pagination text
-            document.getElementById('paginationText').textContent =
-                'Showing ' + (start + 1) + ' to ' + Math.min(end, filteredStudents.length) + ' of ' + filteredStudents.length + ' entries';
+            // Update pagination text and buttons
+            updatePagination();
 
             // Reinitialize Lucide icons for the new content
             lucide.createIcons();
-
-            // Update pagination buttons
-            document.getElementById('prevPage').disabled = currentPage === 1;
-            document.getElementById('nextPage').disabled = end >= filteredStudents.length;
         }
 
         // Update table header
@@ -416,17 +421,38 @@
                     </th>
                 `;
             }
-            if (columnVisibility.department) {
+            if (columnVisibility.phone) {
                 header.innerHTML += `
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Department
+                        Phone
                     </th>
                 `;
             }
-            if (columnVisibility.performance) {
+            if (columnVisibility.course) {
                 header.innerHTML += `
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Performance
+                        Course
+                    </th>
+                `;
+            }
+            if (columnVisibility.specialization) {
+                header.innerHTML += `
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Specialization
+                    </th>
+                `;
+            }
+            if (columnVisibility.school) {
+                header.innerHTML += `
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        School
+                    </th>
+                `;
+            }
+            if (columnVisibility.yearofadmission) {
+                header.innerHTML += `
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Year of Admission
                     </th>
                 `;
             }
@@ -435,6 +461,20 @@
                     Actions
                 </th>
             `;
+        }
+
+        // Update pagination
+        function updatePagination() {
+            const paginationText = document.getElementById('paginationText');
+            const prevPageBtn = document.getElementById('prevPage');
+            const nextPageBtn = document.getElementById('nextPage');
+
+            const start = (currentPage - 1) * itemsPerPage + 1;
+            const end = Math.min(currentPage * itemsPerPage, filteredStudents.length);
+            paginationText.textContent = `Showing ${start} to ${end} of ${filteredStudents.length} entries`;
+
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = end >= filteredStudents.length;
         }
 
         // Search functionality
@@ -708,4 +748,3 @@
     </script>
 </body>
 </html>
-
